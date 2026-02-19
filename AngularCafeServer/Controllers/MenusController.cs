@@ -28,7 +28,7 @@ namespace AngularCafeServer.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Menu>> GetMenu(int id)
         {
-            var menu = await _context.Menus.FindAsync(id);
+            var menu = await _context.Menus.Include(m=>m.Category).FirstOrDefaultAsync(x=>x.Id==id);
 
             if (menu == null)
             {
